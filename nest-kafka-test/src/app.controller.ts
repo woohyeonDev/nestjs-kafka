@@ -29,10 +29,14 @@ export class TutorialTopicConsumerController implements OnModuleInit {
     console.log('3', context.getTopic());
     console.log('4', context.getArgs());
     console.log('5', context.getPartition());
-    const topic = 'ErrorTopic';
-    this.kafkaProducerService.connect();
-    this.kafkaProducerService.produce(topic, 'Error!');
-    this.kafkaProducerService.disconnect();
+    //에러 메세지일 경우 에러 토픽에 에러 데이터 전송
+    let err = false
+    if (err) {
+      const topic = 'ErrorTopic';
+      this.kafkaProducerService.connect();
+      this.kafkaProducerService.produce(topic, 'Error!');
+      this.kafkaProducerService.disconnect();      
+    }
     return response;
   }
 }
